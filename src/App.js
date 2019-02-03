@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import withStyles from 'react-jss';
-import ArrowKeysReact from 'arrow-keys-react';
 import { CompactPicker } from 'react-color';
 import { addUrlProps, UrlQueryParamTypes } from 'react-url-query';
 
@@ -44,22 +43,6 @@ const styles = {
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log(ArrowKeysReact.events)
-    ArrowKeysReact.config({
-      left: () => {
-        console.log('left key detected.');
-      },
-      right: () => {
-        console.log('right key detected.');
-      },
-      up: () => {
-        console.log('up key detected.');
-      },
-      down: () => {
-        console.log('down key detected.');
-      }
-    });
-
     this.state = {
       nums: [],
       textarea: "",
@@ -126,7 +109,7 @@ class App extends Component {
   render() {
     if (this.state.nums.length == 0) {
       return (
-        <div className={this.props.classes.root} {...ArrowKeysReact.events}>
+        <div className={this.props.classes.root}>
           <h1 className={this.props.classes.text}>Separate Numbers By Line</h1>
           <textarea className={this.props.classes.textArea} onChange={this.changeText} />
           <div style={{display: 'flex', margin: 20}}>
@@ -148,7 +131,7 @@ class App extends Component {
       );
     } else {
       return (
-        <div className={this.props.classes.root} {...ArrowKeysReact.events} style={{background: this.state.background}}>
+        <div className={this.props.classes.root} style={{background: this.state.background}}>
           <h1 className={this.props.classes.display} style={{color: this.state.textColor}}>{this.state.currentNum}</h1>
         </div>
       )
