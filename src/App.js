@@ -31,7 +31,7 @@ const styles = {
     fontSize: '2em'
   },
   display: {
-    fontFamily: 'PT Mono',
+    fontFamily: '"PT Mono", sans-serif',
     color: 'red',
     fontSize: "10em",
     margin: 0,
