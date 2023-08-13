@@ -36,11 +36,11 @@ const arrayifyLineup = (lineup: string) => {
 };
 
 const Header = () => (
-  <div className="w-full h-16 flex justify-between items-center border-b-[1px] border-b-gray-400 py-6 px-20">
+  <div className="w-full h-16 flex justify-between items-center border-b-[1px] border-b-gray-400 py-6 px-6 sm:px-20">
     <div className="flex items-center justify-center">
       <h2>numberdisplay.io</h2>
     </div>
-    <div>
+    <div className="hidden sm:block">
       <a href="https://wnzls.com"><h2>wnzls.com</h2></a>
     </div>
   </div>
@@ -294,7 +294,7 @@ const App = () => {
     <div className="w-screen min-h-screen flex flex-col items-center">
       <Header />
       <div className="w-full h-full flex-1 flex-col sm:flex-row flex">
-        <div className=" w-full sm:w-1/2 border-r-[1px] border-r-gray-400 border-b-[1px] border-b-gray-400 p-20">
+        <div className=" w-full sm:w-1/2 border-r-[1px] border-r-gray-400 border-b-[1px] border-b-gray-400 p-6 sm:p-20">
           <h1 className="font-bold text-2xl">Sequential Display</h1>
           <p className="mt-2">
             Display any set of numbers (like a custom counter). <br />
@@ -379,7 +379,7 @@ const App = () => {
             </button>
           </div>
         </div>
-        <div className="w-full sm:w-1/2 flex flex-col p-20 justify-between">
+        <div className="w-full sm:w-1/2 flex flex-col p-6 sm:p-20 justify-between">
           <div></div>
           <div className="relative w-full">
             <div
@@ -399,7 +399,7 @@ const App = () => {
                   onClick={() => handleNavigate()}
                 ></div>
                 <div
-                  className={`cursor-pointer absolute top-0 right-0 left-0 flex bg-opacity-25 justify-center h-16 p-3 transition-all opacity-0 hover:opacity-100 ${
+                  className={`cursor-pointer absolute top-0 right-0 left-0 flex bg-opacity-25 justify-center h-8 sm:h-16 p-3 transition-all opacity-0 hover:opacity-100 ${
                     chosenBg === 'white' ? " bg-black text-white" : "bg-white text-black"
                   }`}
                   onClick={() => toggleFullScreen()}
