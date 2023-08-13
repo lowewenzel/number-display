@@ -24,10 +24,7 @@
       property="og:description"
       content="Display a set of numbers like an LED number display, with preset backgrounds and fonts. "
     />
-    <meta
-      property="og:image"
-      content="%PUBLIC_URL%/nums.png"
-    />
+    <meta property="og:image" content="%PUBLIC_URL%/nums.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -40,10 +37,7 @@
       property="twitter:description"
       content="Display a set of numbers like an LED number display, with preset backgrounds and fonts. "
     />
-    <meta
-      property="twitter:image"
-      content="%PUBLIC_URL%/nums.png"
-    />
+    <meta property="twitter:image" content="%PUBLIC_URL%/nums.png" />
 
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -60,6 +54,20 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-QZ09QBZJD7"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-QZ09QBZJD7");
+  </script>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
