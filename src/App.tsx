@@ -399,8 +399,8 @@ const App = () => {
                   onClick={() => handleNavigate()}
                 ></div>
                 <div
-                  className={`cursor-pointer absolute top-0 right-0 w-12 h-12 p-3 transition-all ${
-                    fullScreen ? "opacity-0 hover:opacity-100" : ""
+                  className={`cursor-pointer absolute top-0 right-0 left-0 flex bg-white bg-opacity-25 justify-center h-16 p-3 transition-all opacity-0 hover:opacity-100 ${
+                    fullScreen ? "" : ""
                   }`}
                   onClick={() => toggleFullScreen()}
                 >
@@ -417,7 +417,7 @@ const App = () => {
           </div>
           <div className="mt-4">
             <p>
-              Navigate between numbers with <strong>arrow keys</strong> or <strong>spacebar</strong>. Press <strong>f</strong> or tap the top-right corner to
+              Navigate between numbers with <strong>arrow keys</strong> or <strong>spacebar</strong>. Press <strong>f</strong> or tap the top to
               fullscreen.
             </p>
             <br />
