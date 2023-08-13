@@ -399,8 +399,8 @@ const App = () => {
                   onClick={() => handleNavigate()}
                 ></div>
                 <div
-                  className={`cursor-pointer absolute top-0 right-0 left-0 flex bg-white bg-opacity-25 justify-center h-16 p-3 transition-all opacity-0 hover:opacity-100 ${
-                    fullScreen ? "" : ""
+                  className={`cursor-pointer absolute top-0 right-0 left-0 flex bg-opacity-25 justify-center h-16 p-3 transition-all opacity-0 hover:opacity-100 ${
+                    chosenBg === 'white' ? " bg-black text-white" : "bg-white text-black"
                   }`}
                   onClick={() => toggleFullScreen()}
                 >
