@@ -299,7 +299,8 @@ const App = () => {
           <p className="mt-2">
             Display any set of numbers (like a custom counter). <br />
             Separate numbers by a new line. <br />
-            Use extra lines to add blanks.
+            Use extra lines to add blanks. <br /> <br />
+            Press Update to save.
           </p>
 
           <div className="mt-8">
@@ -369,12 +370,12 @@ const App = () => {
               })}
             </div>
           </div>
-          <div className="mt-4 w-full flex justify-end">
+          <div className="mt-16 w-full flex justify-start">
             <button
               onClick={handleSave}
-              className="p-2 px-4 border-[1px] border-gray-500"
+              className="p-2 px-4 border-[1px] border-gray-500 bg-black text-white"
             >
-              Save
+              Update
             </button>
           </div>
         </div>
@@ -416,7 +417,7 @@ const App = () => {
           </div>
           <div className="mt-4">
             <p>
-              Navigate between numbers with arrow keys or spacebar. Press f to
+              Navigate between numbers with <strong>arrow keys</strong> or <strong>spacebar</strong>. Press <strong>f</strong> or tap the top-right corner to
               fullscreen.
             </p>
             <br />
@@ -424,7 +425,7 @@ const App = () => {
             <br />
             <button
               onClick={handleCopy}
-              className="p-2 px-4 border-[1px] text-white bg-black flex items-center"
+              className="p-2 px-4 border-[1px] flex items-center"
             >
               {" "}
               {!copied && <LinkIcon width={20} className="mr-2" />}
