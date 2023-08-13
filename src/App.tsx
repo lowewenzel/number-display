@@ -41,7 +41,7 @@ const Header = () => (
       <h2>numberdisplay.io</h2>
     </div>
     <div>
-      <h2>wnzls.com</h2>
+      <a href="https://wnzls.com"><h2>wnzls.com</h2></a>
     </div>
   </div>
 );
@@ -141,8 +141,6 @@ const App = () => {
 
   const handleTextarea = useCallback(
     (event: FormEvent<HTMLTextAreaElement>) => {
-      const regex = /[0-9 ]+/;
-
       const value = event.currentTarget.value;
       const array = arrayifyLineup(value);
       let valid = true;
@@ -158,23 +156,6 @@ const App = () => {
       }
     },
     [setInputLineup]
-  );
-
-  const handleSelectOption = useCallback(
-    (variantCategory: string, variant: string) => {
-      switch (variantCategory) {
-        case "background":
-          return setChosenBg(variant);
-        case "font":
-          return setChosenFont(variant);
-        case "size":
-          setChosenSize(variant);
-          return handleResize();
-        default:
-          break;
-      }
-    },
-    [setChosenBg, setChosenFont, setChosenSize]
   );
 
   const handleNavigate = useCallback(
@@ -236,6 +217,8 @@ const App = () => {
     chosenFont,
     chosenSize,
     setLineupIndex,
+    lineup.length,
+    setQuery,
   ]);
 
   const handleCopy = useCallback(async () => {
@@ -257,6 +240,22 @@ const App = () => {
     setFontWidth(`${width! / VARIANTS.realSize[chosenSize]}px`);
   }, [setFontWidth, containerRef, chosenSize]);
 
+  const handleSelectOption = useCallback(
+    (variantCategory: string, variant: string) => {
+      switch (variantCategory) {
+        case "background":
+          return setChosenBg(variant);
+        case "font":
+          return setChosenFont(variant);
+        case "size":
+          setChosenSize(variant);
+          return handleResize();
+        default:
+          break;
+      }
+    },
+    [setChosenBg, setChosenFont, setChosenSize, handleResize]
+  );
   const toggleFullScreen = useCallback(
     (turnOff?: boolean) => {
       if (turnOff !== undefined) {
@@ -265,14 +264,14 @@ const App = () => {
         setFullScreen(!fullScreen);
       }
     },
-    [setFullScreen, fullScreen, handleResize]
+    [setFullScreen, fullScreen]
   );
 
   useEffect(() => {
     window.removeEventListener("resize", handleResize);
     handleResize();
     window.addEventListener("resize", handleResize);
-  }, [chosenSize, fullScreen]);
+  }, [chosenSize, fullScreen, handleResize]);
 
   useEffect(() => {
     const { v, b, f, s } = query;
