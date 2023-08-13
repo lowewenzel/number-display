@@ -59,7 +59,7 @@ interface Variants {
 
 const VARIANTS: Variants = {
   background: ["white", "black", "gradient"],
-  font: ["jetbrains", "dsdigital", "roboto"],
+  font: ["jetbrains", "dsdigital", "arial"],
   size: ["text-sm", "text-2xl", "text-4xl"],
   realSize: {
     "text-sm": 5,
