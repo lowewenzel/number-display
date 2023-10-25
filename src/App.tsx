@@ -186,6 +186,7 @@ const App = () => {
   useHotkeys("right, space, pageup", () => handleNavigate(), {preventDefault: true});
   useHotkeys("escape", () => toggleFullScreen(true));
   useHotkeys("f", () => toggleFullScreen());
+  useHotkeys("c", () => toggleClock());
 
   const fullScreenClasses = useMemo(() => {
     return fullScreen
@@ -395,9 +396,9 @@ const App = () => {
             >
               Update
             </button>
-            <div onClick={toggleClock} className="flex items-center ml-4">
+            <div onClick={toggleClock} className="flex items-center ml-4 cursor-pointer">
               <input checked={showClock} className="mr-2" type="checkbox"></input>
-              <p>Show clock?</p>
+              <p>Clock (<b>c</b>)</p>
             </div>
           </div>
         </div>
@@ -437,7 +438,7 @@ const App = () => {
               </div>
               {
                 showClock &&
-                <div className="absolute top-4 right-4" style={{fontSize: `${fontWidth / 4 }px`}}>
+                <div className="absolute top-0 right-3" style={{fontSize: `${fontWidth / 4 }px`}}>
                   <Clock format={'HH:mm:ss'} ticking={true}/>
                 </div>
                 }
