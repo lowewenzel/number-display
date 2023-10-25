@@ -189,7 +189,7 @@ const App = () => {
 
   const fullScreenClasses = useMemo(() => {
     return fullScreen
-      ? "rounded-none fixed top-0 left-0 right-0 bottom-0"
+      ? "rounded-none fixed top-0 left-0 right-0 bottom-0 cursor-none"
       : "relative rounded-2xl aspect-video";
   }, [fullScreen]);
 
