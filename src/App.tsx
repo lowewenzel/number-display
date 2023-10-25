@@ -14,10 +14,13 @@ import {
   StringParam,
   ArrayParam,
   QueryParamProvider,
+  BooleanParam,
 } from "use-query-params";
 import { WindowHistoryAdapter } from "use-query-params/adapters/window";
 import { ArrowsPointingOutIcon, LinkIcon } from "@heroicons/react/24/solid";
 import { useHotkeys } from "react-hotkeys-hook";
+import Clock from 'react-live-clock';
+
 
 const PLACEHOLDER = `313
 54
@@ -128,7 +131,9 @@ const App = () => {
   const [chosenFont, setChosenFont] = useState("dsdigital");
   const [chosenSize, setChosenSize] = useState("text-2xl");
   const [fullScreen, setFullScreen] = useState(false);
-  const [fontWidth, setFontWidth] = useState("");
+  const [showClock, setShowClock] = useState(false);
+  const [fontWidth, setFontWidth] = useState(0);
+  const [dirty, setDirty] = useState(false);
   const [copied, setCopied] = useState(false);
   const [query, setQuery] = useQueryParams({
     v: ArrayParam, // values
@@ -136,6 +141,7 @@ const App = () => {
     f: StringParam, // font
     s: StringParam, // size
     i: NumberParam, // index
+    c: BooleanParam, // clock
   });
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -144,6 +150,7 @@ const App = () => {
       const value = event.currentTarget.value;
       const array = arrayifyLineup(value);
       let valid = true;
+      setDirty(true);
 
       array.forEach((v) => {
         if (v.length > MAX_CHARS) {
@@ -155,7 +162,7 @@ const App = () => {
         setInputLineup(value);
       }
     },
-    [setInputLineup]
+    [setInputLineup, setDirty]
   );
 
   const handleNavigate = useCallback(
@@ -175,8 +182,8 @@ const App = () => {
     [lineupIndex, lineup]
   );
 
-  useHotkeys("left", () => handleNavigate(true));
-  useHotkeys("right, space", () => handleNavigate());
+  useHotkeys("left, pagedown", () => handleNavigate(true), {preventDefault: true});
+  useHotkeys("right, space, pageup", () => handleNavigate(), {preventDefault: true});
   useHotkeys("escape", () => toggleFullScreen(true));
   useHotkeys("f", () => toggleFullScreen());
 
@@ -209,7 +216,9 @@ const App = () => {
       b: chosenBg,
       f: chosenFont,
       s: chosenSize,
+      c: showClock,
     });
+    setDirty(false);
   }, [
     setLineup,
     inputLineup,
@@ -219,6 +228,8 @@ const App = () => {
     setLineupIndex,
     lineup.length,
     setQuery,
+    setDirty,
+    showClock,
   ]);
 
   const handleCopy = useCallback(async () => {
@@ -237,7 +248,7 @@ const App = () => {
 
   const handleResize = useCallback(() => {
     const width = containerRef.current?.clientWidth;
-    setFontWidth(`${width! / VARIANTS.realSize[chosenSize]}px`);
+    setFontWidth(width! / VARIANTS.realSize[chosenSize]);
   }, [setFontWidth, containerRef, chosenSize]);
 
   const handleSelectOption = useCallback(
@@ -267,6 +278,10 @@ const App = () => {
     [setFullScreen, fullScreen]
   );
 
+  const toggleClock = useCallback(() => {
+    setShowClock(!showClock)
+  }, [setShowClock, showClock])
+
   useEffect(() => {
     window.removeEventListener("resize", handleResize);
     handleResize();
@@ -274,7 +289,7 @@ const App = () => {
   }, [chosenSize, fullScreen, handleResize]);
 
   useEffect(() => {
-    const { v, b, f, s } = query;
+    const { v, b, f, s, c } = query;
     if (v) {
       setLineup(v as string[]);
       setInputLineup(v.join("\n"));
@@ -288,7 +303,10 @@ const App = () => {
     if (s && VARIANTS.size.includes(s)) {
       setChosenSize(s);
     }
-  }, [query]);
+    if(c) {
+      setShowClock(c)
+    }
+  }, [query, setShowClock]);
 
   return (
     <div className="w-screen min-h-screen flex flex-col items-center">
@@ -377,9 +395,13 @@ const App = () => {
             >
               Update
             </button>
+            <div onClick={toggleClock} className="flex items-center ml-4">
+              <input checked={showClock} className="mr-2" type="checkbox"></input>
+              <p>Show clock?</p>
+            </div>
           </div>
         </div>
-        <div className="w-full sm:w-1/2 flex flex-col p-6 sm:p-20 justify-between">
+        <div className="w-full sm:w-1/2 flex flex-col p-6 sm:p-20 justify-between select-none">
           <div></div>
           <div className="relative w-full">
             <div
@@ -407,15 +429,26 @@ const App = () => {
                   <ArrowsPointingOutIcon className="text-white" />
                 </div>
                 <span
-                  style={{ fontSize: fontWidth }}
+                  style={{ fontSize: `${fontWidth}px` }}
                   className="top-1/2 left-1/2"
                 >
                   {currentLineupNumber}
                 </span>
               </div>
+              {
+                showClock &&
+                <div className="absolute top-4 right-4" style={{fontSize: `${fontWidth / 4 }px`}}>
+                  <Clock format={'HH:mm:ss'} ticking={true}/>
+                </div>
+                }
             </div>
           </div>
           <div className="mt-4">
+            <p className="mb-4 text-red-600 font-bold">
+            {
+              dirty && 'You have unsaved changes.'
+            }&nbsp;
+            </p>
             <p>
               Navigate between numbers with <strong>arrow keys</strong> or <strong>spacebar</strong>. Press <strong>f</strong> or tap the top to
               fullscreen.
