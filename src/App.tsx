@@ -39,7 +39,7 @@ const arrayifyLineup = (lineup: string) => {
 };
 
 const Header = () => (
-  <div className="w-full h-16 flex justify-between items-center border-b-[1px] border-b-gray-400 py-6 px-6 sm:px-20">
+  <div className="w-full h-16 flex justify-between items-center border-b-[1px] border-b-gray-400 py-6 px-6 sm:px-16">
     <div className="flex items-center justify-center">
       <h2>numberdisplay.io</h2>
     </div>
@@ -310,16 +310,15 @@ const App = () => {
   }, [query, setShowClock]);
 
   return (
-    <div className="w-screen min-h-screen flex flex-col items-center">
+    <div className="max-w-screen overflow-x-hidden min-h-screen flex flex-col items-center">
       <Header />
       <div className="w-full h-full flex-1 flex-col sm:flex-row flex">
-        <div className=" w-full sm:w-1/2 border-r-[1px] border-r-gray-400 border-b-[1px] border-b-gray-400 p-6 sm:p-20">
+        <div className=" w-full sm:w-1/2 border-r-[1px] border-r-gray-400 border-b-[1px] border-b-gray-400 p-6 sm:p-16">
           <h1 className="font-bold text-2xl">Sequential Display</h1>
           <p className="mt-2">
             Display any set of numbers (like a custom counter). <br />
             Separate numbers by a new line. <br />
-            Use extra lines to add blanks. <br /> <br />
-            Press Update to save.
+            Use extra lines to add blanks.
           </p>
 
           <div className="mt-8">
@@ -331,6 +330,7 @@ const App = () => {
               placeholder={PLACEHOLDER}
             ></textarea>
           </div>
+          <div className="flex flex-row flex-wrap items-end">
           <div className="mt-6">
             <h2 className="font-bold mb-2">Background</h2>
             <div className="flex items-center">
@@ -389,6 +389,7 @@ const App = () => {
               })}
             </div>
           </div>
+          </div>
           <div className="mt-16 w-full flex justify-start">
             <button
               onClick={handleSave}
@@ -402,12 +403,12 @@ const App = () => {
             </div>
           </div>
         </div>
-        <div className="w-full sm:w-1/2 flex flex-col p-6 sm:p-20 justify-between select-none">
+        <div className="w-full sm:w-1/2 flex flex-col p-6 sm:p-16 justify-between select-none">
           <div></div>
           <div className="relative w-full">
             <div
               onResize={handleResize}
-              className={` w-full flex flex-col justify-center text-center font-bold items-center overflow-hidden  ${finalClasses}`}
+              className={`w-full flex flex-col justify-center text-center font-bold items-center overflow-hidden  ${finalClasses}`}
             >
               <div
                 ref={containerRef}
